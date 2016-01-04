@@ -1,6 +1,7 @@
 import React from 'react'
 import { render } from 'react-dom'
-import { Router, Route, IndexRoute, Link, browserHistory } from 'react-router'
+import { Router, Route, IndexRoute, Link } from 'react-router'
+import createBrowserHistory from 'history/lib/createBrowserHistory'
 
 const About = React.createClass({
 	render() {
@@ -46,11 +47,11 @@ const App = React.createClass({
 })
 
 render((
-  <Router history={browserHistory}>
+  <Router history={createBrowserHistory()}>
     <Route path="/" component={App}>
       <IndexRoute component={Home} />
       <Route path="about" component={About} />
       <Route path="inbox" component={Inbox} />
     </Route>
   </Router>
-), document.body)
+), document.getElementById('content'));
