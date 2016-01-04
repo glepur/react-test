@@ -2,6 +2,7 @@ var gulp = require('gulp');
 var browserify = require('browserify');
 var babelify = require('babelify');
 var source = require('vinyl-source-stream');
+var nodemon = require('gulp-nodemon');
 
 gulp.task('build', function() {
 	browserify({
@@ -16,6 +17,16 @@ gulp.task('build', function() {
 		.pipe(gulp.dest('client'));
 });
 
-gulp.task('default', function() {
-	console.log('soooon!');
+gulp.task('serve', function() {
+	nodemon({
+		script: 'server/app.js',
+		ext: 'js jsx',
+		ignore: 'client/bundle.js',
+		env: {
+			'NODE_ENV': 'development'
+		},
+		tasks: ['build']
+	});
 });
+
+gulp.task('default', ['serve']);
