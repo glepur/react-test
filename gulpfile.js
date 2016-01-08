@@ -3,30 +3,37 @@ var browserify = require('browserify');
 var babelify = require('babelify');
 var source = require('vinyl-source-stream');
 var nodemon = require('gulp-nodemon');
+var livereload = require('gulp-livereload');
 
-gulp.task('build', function() {
+gulp.task('client:build', function() {
 	browserify({
-			entries: 'client/js/main.jsx',
-			debug: true
+			entries: 'client/app/app.jsx',
+			debug: true,
+			extensions: ['.js', '.jsx']
 		})
 		.transform(babelify, {
 			presets: ['es2015', 'react']
 		})
 		.bundle()
 		.pipe(source('bundle.js'))
-		.pipe(gulp.dest('client'));
+		.pipe(gulp.dest('client'))
+		.pipe(livereload());
+});
+
+gulp.task('watch', function() {
+	livereload.listen();
+	gulp.watch('client/**/*.jsx', ['client:build']);
 });
 
 gulp.task('serve', function() {
 	nodemon({
 		script: 'server/app.js',
 		ext: 'js jsx',
-		ignore: 'client/bundle.js',
+		watch: 'server',
 		env: {
 			'NODE_ENV': 'development'
-		},
-		tasks: ['build']
+		}
 	});
 });
 
-gulp.task('default', ['serve']);
+gulp.task('default', ['watch', 'serve']);
