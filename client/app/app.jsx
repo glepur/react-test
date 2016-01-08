@@ -2,34 +2,9 @@ import React from 'react'
 import { render } from 'react-dom'
 import { Router, Route, IndexRoute, Link } from 'react-router'
 import createBrowserHistory from 'history/lib/createBrowserHistory'
-
-const About = React.createClass({
-	render() {
-	    return (
-	      <div>
-	        <h1>About</h1>
-	      </div>
-	    )
-	}
-})
-const Inbox = React.createClass({
-	render() {
-	    return (
-	      <div>
-	        <h1>Inbox</h1>
-	      </div>
-	    )
-	}
-})
-const Home = React.createClass({
-	render() {
-	    return (
-	      <div>
-	        <h1>Home</h1>
-	      </div>
-	    )
-	}
-})
+import Home from './home/home'
+import Inbox from './inbox/inbox'
+import About from './about/about'
 
 const App = React.createClass({
   render() {
