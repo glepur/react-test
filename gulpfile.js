@@ -33,6 +33,8 @@ gulp.task('serve', function() {
 		env: {
 			'NODE_ENV': 'development'
 		}
+	}).on('restart', function() {
+		livereload.reload();
 	});
 });
 
