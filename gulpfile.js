@@ -36,4 +36,8 @@ gulp.task('serve', function() {
 	});
 });
 
-gulp.task('default', ['watch', 'serve']);
+gulp.task('open', function() {
+	require('open')('http://localhost:9000');
+});
+
+gulp.task('default', ['watch', 'serve', 'open']);
