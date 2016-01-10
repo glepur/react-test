@@ -26,15 +26,16 @@ gulp.task('build:sass', function() {
 	gulp.src('./client/**/*.scss')
 		.pipe(sass().on('error', sass.logError))
 		.pipe(concat('main.css'))
-		.pipe(gulp.dest('./client'));
+		.pipe(gulp.dest('./client'))
+		.pipe(livereload());
 });
 
 gulp.task('build', ['build:jsx', 'build:sass'])
 
 gulp.task('watch', function() {
 	livereload.listen();
-	gulp.watch('./client/**/*.jsx', ['jsx:build']);
-	gulp.watch('./client/**/*.scss', ['sass:build']);
+	gulp.watch('./client/**/*.jsx', ['build:jsx']);
+	gulp.watch('./client/**/*.scss', ['build:sass']);
 });
 
 gulp.task('serve', function() {
